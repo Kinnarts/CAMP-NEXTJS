@@ -9,4 +9,5 @@ export const Stack = Contentstack.Stack({
     enable: true,
     host: "eu-api.contentstack.io",
   },
+  region: Contentstack.Region.EU,
 });
