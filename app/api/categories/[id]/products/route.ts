@@ -1,10 +1,10 @@
-import { getClient } from "@/lib/client";
+import { getClient } from "@/lib/utils/apollo-client";
 import { gql } from "@apollo/client";
 import { Category } from "../../route";
-import { NextApiRequest } from "next";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  request: NextApiRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const id = params?.id;

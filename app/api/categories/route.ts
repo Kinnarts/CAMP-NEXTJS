@@ -1,4 +1,4 @@
-import { getClient } from "@/lib/client";
+import { getClient } from "@/lib/utils/apollo-client";
 import { gql } from "@apollo/client";
 
 export async function GET() {

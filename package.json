@@ -11,7 +11,9 @@
   "dependencies": {
     "@apollo/client": "^3.8.7",
     "@apollo/experimental-nextjs-app-support": "^0.5.1",
+    "@contentstack/live-preview-utils": "^1.4.0",
     "@storefront-ui/react": "^2.6.0",
+    "contentstack": "^3.17.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18"

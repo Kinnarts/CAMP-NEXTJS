@@ -12,7 +12,7 @@ import Image from "next/image";
 export default function ProductCardVertical({
   product = {},
 }: {
-  product: Product;
+  product?: Product;
 }) {
   return (
     <div className="border border-neutral-200 rounded-md hover:shadow-lg max-w-[300px]">
