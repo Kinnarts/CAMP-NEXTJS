@@ -13,7 +13,7 @@ export default async function FlashSale({
     .toJSON()
     .where("url", `/flash-sale/${params.sku}`)
     .find()
-    .then((response) => response[0]);
+    .then((response) => response[0][0]);
 
   return (
     <>
