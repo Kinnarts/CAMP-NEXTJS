@@ -15,10 +15,14 @@ export const Stack = Contentstack.Stack({
 });
 
 ContentstackLivePreview.init({
+  //@ts-ignore
+  stackSdk: Stack,
   stackDetails: {
     apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
+    environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
   },
   enable: true,
+  ssr: false,
 });
 
 export const { onEntryChange } = ContentstackLivePreview;

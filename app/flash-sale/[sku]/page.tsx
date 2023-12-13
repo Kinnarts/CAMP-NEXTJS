@@ -22,7 +22,7 @@ export default function FlashSale({ params }: { params: { sku: string } }) {
 
   return (
     <>
-      <div className="flex">Flash sale page</div>
+      <div className="flex">Flash sale page2</div>
       {getPage?.intro}
     </>
   );
