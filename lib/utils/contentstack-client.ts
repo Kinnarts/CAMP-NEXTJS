@@ -9,15 +9,14 @@ export const Stack = Contentstack.Stack({
   live_preview: {
     management_token: process.env.NEXT_PUBLIC_CONTENTSTACK_TOKEN!,
     enable: true,
-    host: "eu-api.contentstack.io",
+    host: "eu-api.contentstack.com",
   },
   region: Contentstack.Region.EU,
 });
 
 ContentstackLivePreview.init({
-  stackSdk: {
-    ...Stack,
-    headers: { api_key: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY! },
+  stackDetails: {
+    apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
   },
   enable: true,
 });
