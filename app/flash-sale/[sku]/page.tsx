@@ -1,12 +1,8 @@
 "use client";
-import { Stack } from "@/lib/utils/contentstack-client";
-import ContentstackLivePreview from "@contentstack/live-preview-utils";
+import { Stack, onEntryChange } from "@/lib/utils/contentstack-client";
 import { useEffect, useState } from "react";
 
 export default function FlashSale({ params }: { params: { sku: string } }) {
-  ContentstackLivePreview.init({
-    enable: true,
-  });
   const [getPage, setPage] = useState({} as any);
 
   async function fetchData() {
@@ -19,7 +15,6 @@ export default function FlashSale({ params }: { params: { sku: string } }) {
         .then((response) => response[0][0])
     );
   }
-  const { onEntryChange } = ContentstackLivePreview;
 
   useEffect(() => {
     onEntryChange(() => fetchData());
