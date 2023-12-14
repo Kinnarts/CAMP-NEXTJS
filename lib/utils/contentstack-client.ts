@@ -1,6 +1,5 @@
 import Contentstack from "contentstack";
 import ContentstackLivePreview from "@contentstack/live-preview-utils";
-import { IStackSdk } from "@contentstack/live-preview-utils/dist/src/utils/types";
 
 export const Stack = Contentstack.Stack({
   api_key: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
@@ -25,7 +24,6 @@ ContentstackLivePreview.init({
     environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
   },
   enable: true,
-  ssr: false,
 });
 
 export const { onEntryChange } = ContentstackLivePreview;
