@@ -6,6 +6,7 @@ export default function FlashSale({ params }: { params: { sku: string } }) {
   const [getPage, setPage] = useState({} as any);
 
   async function fetchData() {
+    console.log(process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN);
     setPage(
       await Stack.ContentType("sales")
         .Query()
@@ -22,7 +23,7 @@ export default function FlashSale({ params }: { params: { sku: string } }) {
 
   return (
     <>
-      <div className="flex">Flash sale page2</div>
+      <div className="flex">Flash sale page3</div>
       {getPage?.intro}
     </>
   );
