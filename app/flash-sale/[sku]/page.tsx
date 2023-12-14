@@ -1,8 +1,5 @@
 "use client";
-import Stack, {
-  getEntryByUrl,
-  onEntryChange,
-} from "@/lib/utils/contentstack-client";
+import { getEntryByUrl, onEntryChange } from "@/lib/utils/contentstack-client";
 import { useEffect, useState } from "react";
 
 export default function FlashSale({ params }: { params: { sku: string } }) {
