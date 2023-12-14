@@ -17,6 +17,9 @@ export const Stack = Contentstack.Stack({
 ContentstackLivePreview.init({
   //@ts-ignore
   stackSdk: Stack,
+  clientUrlParams: {
+    host: "eu-app.contentstack.com",
+  },
   stackDetails: {
     apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
     environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
