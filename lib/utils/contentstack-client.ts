@@ -13,7 +13,7 @@ const Stack = Contentstack.Stack({
   environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
   delivery_token: process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN!,
   live_preview: {
-    management_token: process.env.NEXT_PUBLIC_CONTENTSTACK_TOKEN!,
+    management_token: process.env.NEXT_PUBLIC_CONTENTSTACK_MANAGEMENT_TOKEN!,
     enable: true,
     host: "eu-api.contentstack.com",
   },
@@ -42,6 +42,7 @@ export const getEntryByUrl = ({
   referenceFieldPath,
   jsonRtePath,
 }: GetEntryByUrl) => {
+  console.log(process.env);
   return new Promise((resolve, reject) => {
     const blogQuery = Stack.ContentType(contentTypeUid).Query();
     if (referenceFieldPath) blogQuery.includeReference(referenceFieldPath);
