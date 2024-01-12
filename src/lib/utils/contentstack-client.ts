@@ -1,11 +1,13 @@
 import Contentstack from "contentstack";
 import ContentstackLivePreview from "@contentstack/live-preview-utils";
+import { defaultLocale } from "@/middleware";
 
 type GetEntryByUrl = {
   entryUrl: string | undefined;
   contentTypeUid: string;
   referenceFieldPath?: string[] | undefined;
   jsonRtePath?: string[] | undefined;
+  language?: string;
 };
 
 const Stack = Contentstack.Stack({
@@ -41,10 +43,12 @@ export const getEntryByUrl = ({
   entryUrl,
   referenceFieldPath,
   jsonRtePath,
+  language = defaultLocale,
 }: GetEntryByUrl) => {
-  console.log(process.env);
   return new Promise((resolve, reject) => {
-    const blogQuery = Stack.ContentType(contentTypeUid).Query();
+    const blogQuery = Stack.ContentType(contentTypeUid)
+      .Query()
+      .language(language.toLowerCase());
     if (referenceFieldPath) blogQuery.includeReference(referenceFieldPath);
     blogQuery.toJSON();
     const data = blogQuery.where("url", `${entryUrl}`).find();

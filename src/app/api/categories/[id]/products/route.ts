@@ -46,7 +46,7 @@ export async function GET(
   const query = gql`
     ${productVariantFragment}
     query GetProductsByCategoryKey($filters: String!) {
-      productProjectionSearch(filters: { string: $filters }) {
+      productProjectionSearch(filters: { string: $filters }, limit: 100) {
         results {
           id
           categories {
@@ -54,6 +54,14 @@ export async function GET(
             key
           }
           name(locale: "en-US")
+          nameAllLocales {
+            locale
+            value
+          }
+          descriptionAllLocales {
+            locale
+            value
+          }
           slug(locale: "en-US")
           description(locale: "en-US")
           variants {
@@ -87,6 +95,8 @@ export interface Product {
   id?: string;
   name?: string;
   description?: string;
+  nameAllLocales?: LocalizedString[];
+  descriptionAllLocales?: LocalizedString[];
   slug?: string;
   categories?: Array<Category>;
   variants?: Array<ProductVariant>;
@@ -117,4 +127,9 @@ export interface PriceValue {
 export interface ProductVariantAvailability {
   isOnStock?: boolean;
   availableQty?: number;
+}
+
+export interface LocalizedString {
+  locale?: string;
+  value?: string;
 }

@@ -1,4 +1,5 @@
 import { Product } from "@/app/api/categories/[id]/products/route";
+import { defaultLocale } from "@/middleware";
 import {
   SfButton,
   SfRating,
@@ -11,8 +12,10 @@ import Image from "next/image";
 
 export default function ProductCardVertical({
   product = {},
+  language = defaultLocale,
 }: {
   product?: Product;
+  language?: string;
 }) {
   return (
     <div className="border border-neutral-200 rounded-md hover:shadow-lg max-w-[300px]">
@@ -46,7 +49,8 @@ export default function ProductCardVertical({
       </div>
       <div className="p-4 border-t border-neutral-200">
         <SfLink href="#" variant="secondary" className="no-underline">
-          {product.name}
+          {product.nameAllLocales?.find((name) => name.locale === language)
+            ?.value || product.name}
         </SfLink>
         <div className="flex items-center pt-1">
           <SfRating size="xs" value={5} max={5} />
@@ -56,7 +60,9 @@ export default function ProductCardVertical({
           </SfLink>
         </div>
         <p className="block py-2 font-normal typography-text-sm text-neutral-700">
-          {product.description}
+          {product.descriptionAllLocales?.find(
+            (desc) => desc.locale === language
+          )?.value || product.description}
         </p>
         <span className="block pb-2 font-bold typography-text-lg">
           {product.masterVariant?.prices &&

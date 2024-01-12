@@ -2,7 +2,11 @@
 import { getEntryByUrl, onEntryChange } from "@/lib/utils/contentstack-client";
 import { useEffect, useState } from "react";
 
-export default function FlashSale({ params }: { params: { sku: string } }) {
+export default function FlashSale({
+  params,
+}: {
+  params: { sku: string; lang: string };
+}) {
   const [getPage, setPage] = useState({} as any);
 
   async function fetchData() {
@@ -10,16 +14,9 @@ export default function FlashSale({ params }: { params: { sku: string } }) {
       await getEntryByUrl({
         contentTypeUid: "sales",
         entryUrl: `/flash-sale/${params.sku}`,
+        language: params.lang,
       }).then((response: any) => response[0])
     );
-    // setPage(
-    //   await Stack.ContentType("sales")
-    //     .Query()
-    //     .toJSON()
-    //     .where("url", `/flash-sale/${params.sku}`)
-    //     .find()
-    //     .then((response: any) => response[0][0])
-    // );
   }
 
   useEffect(() => {

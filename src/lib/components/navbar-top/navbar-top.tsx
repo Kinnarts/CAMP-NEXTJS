@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SfButton,
   SfIconShoppingCart,
@@ -10,10 +10,24 @@ import {
   SfInput,
   SfIconSearch,
   SfIconMenu,
+  SfSelect,
 } from "@storefront-ui/react";
+import { usePathname, useRouter } from "next/navigation";
+import { Store } from "@/app/api/stores/route";
 
 export default function NavbarTop() {
   const [inputValue, setInputValue] = useState("");
+  const [stores, setStores] = useState([] as Store[]);
+  const currentPath = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/stores")
+      .then((res) => res.json())
+      .then((stores) => {
+        setStores(stores);
+      });
+  }, []);
 
   const actionItems = [
     {
@@ -39,6 +53,14 @@ export default function NavbarTop() {
   const search = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     alert(`Successfully found 10 results for ${inputValue}`);
+  };
+
+  const onLanguageChange = (event: React.FormEvent<HTMLSelectElement>) => {
+    const redirectPath = currentPath.replace(
+      /en-US|fr-FR|de-DE/g,
+      event.currentTarget.value
+    );
+    router.push(redirectPath);
   };
 
   return (
@@ -108,6 +130,18 @@ export default function NavbarTop() {
         </form>
         <nav className="flex-1 flex justify-end lg:order-last lg:ml-4">
           <div className="flex flex-row flex-nowrap">
+            <SfSelect
+              placeholder="-- Select --"
+              size="base"
+              onChange={onLanguageChange}
+            >
+              {stores &&
+                stores[0]?.languages.map((lang) => (
+                  <option value={lang} key={lang}>
+                    {lang}
+                  </option>
+                ))}
+            </SfSelect>
             {actionItems.map((actionItem) => (
               <SfButton
                 key={actionItem.ariaLabel}

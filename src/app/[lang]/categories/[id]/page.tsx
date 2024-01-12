@@ -2,7 +2,11 @@ import { GET, Product } from "@/app/api/categories/[id]/products/route";
 import Categories from "@/lib/components/categories/categories";
 import ProductCardVertical from "@/lib/components/product-card-vertical/product-card-vertical";
 
-export default async function Category({ params }: { params: { id: string } }) {
+export default async function Category({
+  params,
+}: {
+  params: { id: string; lang: string };
+}) {
   const productsResponse = await GET({} as any, { params });
   const products: Product[] = await productsResponse.json();
 
@@ -18,7 +22,11 @@ export default async function Category({ params }: { params: { id: string } }) {
 
           <div className="grid grid-cols-3 gap-4">
             {products.map((product) => (
-              <ProductCardVertical key={product.id} product={product} />
+              <ProductCardVertical
+                key={product.id}
+                product={product}
+                language={params.lang}
+              />
             ))}
           </div>
         </div>
