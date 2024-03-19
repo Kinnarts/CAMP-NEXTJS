@@ -93,11 +93,11 @@ export async function GET(
 
 export interface Product {
   id?: string;
-  name?: string;
-  description?: string;
+  name?: { [key: string]: string };
+  description?: { [key: string]: string };
   nameAllLocales?: LocalizedString[];
   descriptionAllLocales?: LocalizedString[];
-  slug?: string;
+  slug?: { [key: string]: string };
   categories?: Array<Category>;
   variants?: Array<ProductVariant>;
   masterVariant?: ProductVariant;

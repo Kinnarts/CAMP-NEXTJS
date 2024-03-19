@@ -7,7 +7,19 @@ export default async function Category({
 }: {
   params: { id: string; lang: string };
 }) {
-  const productsResponse = await GET({} as any, { params });
+  const productsResponse = await fetch(
+    `http://localhost:3000/api/categories/${params.id}/products/search`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        params: {
+          facetFilters: [
+            `categories.name.en-US:${decodeURIComponent(params.id)}`,
+          ],
+        },
+      }),
+    }
+  );
   const products: Product[] = await productsResponse.json();
 
   return (
@@ -18,7 +30,9 @@ export default async function Category({
         </div>
 
         <div className="w-3/4 p-4">
-          <h2 className="font-bold text-xl mb-4">Category {params.id}</h2>
+          <h2 className="font-bold text-xl mb-4">
+            Category {decodeURIComponent(params.id)}
+          </h2>
 
           <div className="grid grid-cols-3 gap-4">
             {products.map((product) => (

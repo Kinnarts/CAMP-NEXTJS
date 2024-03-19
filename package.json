@@ -17,11 +17,15 @@
     "@contentstack/live-preview-utils": "^1.4.0",
     "@formatjs/intl-localematcher": "^0.5.2",
     "@storefront-ui/react": "^2.6.0",
+    "algoliasearch": "^4.22.1",
     "contentstack": "^3.17.2",
+    "instantsearch.css": "^8.1.0",
     "negotiator": "^0.6.3",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-instantsearch": "^7.5.5",
+    "react-instantsearch-nextjs": "^0.1.12"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",

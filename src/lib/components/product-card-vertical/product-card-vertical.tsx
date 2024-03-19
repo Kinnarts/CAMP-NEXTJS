@@ -49,8 +49,7 @@ export default function ProductCardVertical({
       </div>
       <div className="p-4 border-t border-neutral-200">
         <SfLink href="#" variant="secondary" className="no-underline">
-          {product.nameAllLocales?.find((name) => name.locale === language)
-            ?.value || product.name}
+          {product.name && product.name[language]}
         </SfLink>
         <div className="flex items-center pt-1">
           <SfRating size="xs" value={5} max={5} />
@@ -60,9 +59,7 @@ export default function ProductCardVertical({
           </SfLink>
         </div>
         <p className="block py-2 font-normal typography-text-sm text-neutral-700">
-          {product.descriptionAllLocales?.find(
-            (desc) => desc.locale === language
-          )?.value || product.description}
+          {product.description && product.description[language]}
         </p>
         <span className="block pb-2 font-bold typography-text-lg">
           {product.masterVariant?.prices &&
