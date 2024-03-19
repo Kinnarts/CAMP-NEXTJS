@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import "instantsearch.css/themes/satellite.css";
 import Footer from "@/lib/components/footer/footer";
 import NavbarTop from "@/lib/components/navbar-top/navbar-top";
 

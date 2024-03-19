@@ -14,6 +14,10 @@ import {
 } from "@storefront-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { Store } from "@/app/api/stores/route";
+import { Hits, InstantSearch, SearchBox } from "react-instantsearch";
+import Image from "next/image";
+import { searchClient } from "@/lib/utils/algolia-client";
+import { InstantSearchNext } from "react-instantsearch-nextjs";
 
 export default function NavbarTop() {
   const [inputValue, setInputValue] = useState("");
@@ -100,34 +104,18 @@ export default function NavbarTop() {
             Browse products
           </span>
         </SfButton>
-        <form
-          role="search"
-          className="flex flex-[100%] order-last lg:order-3 mt-2 lg:mt-0 pb-2 lg:pb-0"
-          onSubmit={search}
-        >
-          <SfInput
-            value={inputValue}
-            type="search"
-            className="[&::-webkit-search-cancel-button]:appearance-none"
-            placeholder="Search"
-            wrapperClassName="flex-1 h-10 pr-0"
-            size="base"
-            slotSuffix={
-              <span className="flex items-center">
-                <SfButton
-                  variant="tertiary"
-                  square
-                  aria-label="search"
-                  type="submit"
-                  className="rounded-l-none hover:bg-transparent active:bg-transparent"
-                >
-                  <SfIconSearch />
-                </SfButton>
-              </span>
-            }
-            onChange={(event) => setInputValue(event.target.value)}
-          />
-        </form>
+        <div className="flex-1 p-relative">
+          <InstantSearchNext
+            searchClient={searchClient}
+            indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || ""}
+          >
+            <SearchBox></SearchBox>
+            <Hits
+              hitComponent={Hit}
+              className="absolute w-96 max-h-48 overflow-y-auto bg-white shadow-md z-10"
+            />
+          </InstantSearchNext>
+        </div>
         <nav className="flex-1 flex justify-end lg:order-last lg:ml-4">
           <div className="flex flex-row flex-nowrap">
             <SfSelect
@@ -162,5 +150,28 @@ export default function NavbarTop() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function Hit({ hit }: { hit: any }) {
+  return (
+    <article>
+      <Image
+        src={
+          (hit.masterVariant.images && hit.masterVariant.images[0]?.url) || ""
+        }
+        alt={(hit.name && hit.name["en-US"]) || ""}
+        width="150"
+        height="150"
+      />
+      <p>{hit.slug && hit.slug["en-US"]}</p>
+      <h1>{hit.name && hit.name["en-US"]}</h1>
+      <p>
+        $
+        {(hit.masterVariant?.prices &&
+          hit.masterVariant?.prices[0]?.value?.centAmount) ||
+          0}
+      </p>
+    </article>
   );
 }
